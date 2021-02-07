@@ -13,25 +13,24 @@ public class Parser {
 	public boolean parse(String command)
 	{
 
-		command=command.toLowerCase();
+		//command=command.toLowerCase();
 		
 		
 		Pattern pattern;
 		Matcher matcher;
 		String operation= new String();
 		
-		operation="bye";
+		operation="bye|BYE";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
 			return true;
 		}
 		
-		operation="use database (.+)";
+		operation="(?:use database|USE DATABASE) (.+)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
-			//db.extactProfile();
 			String dbName=matcher.group(1);
 			db=new Engine(dbName);
 			System.out.println("Using database "+dbName);
@@ -45,7 +44,7 @@ public class Parser {
 		String entity;
 		String lastHash;
 		
-		operation="put (.+) (.+) (.+) (.+)";
+		operation="(?:put|PUT) (.+) (.+) (.+) (.+)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -59,7 +58,7 @@ public class Parser {
 		}
 
 
-		operation="get entities";
+		operation="(?:get entities|GET ENTITIES)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -67,7 +66,7 @@ public class Parser {
 			return false;
 		}
 
-		operation="get keys (.+)";
+		operation="(?:get keys|GET KEYS) (.+)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -76,7 +75,7 @@ public class Parser {
 			return false;
 		}
 
-		operation="get attributes (.+) (.+)";
+		operation="(?:get attributes|GET ATTRIBUTES) (.+) (.+)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -86,7 +85,7 @@ public class Parser {
 			return false;
 		}
 
-		operation="get (.+) (.+) (.+)";
+		operation="(?:get|GET) (.+) (.+) (.+)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -99,7 +98,7 @@ public class Parser {
 		}
 
 		
-		operation="delete (.+) (.+) (.+) (.+)";
+		operation="(?:delete|DELETE) (.+) (.+) (.+) (.+)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -112,7 +111,7 @@ public class Parser {
 			return false;
 		}
 
-		operation="update (.+) (.+) (.+) (.+) (.+)";
+		operation="(?:update|UPDATE) (.+) (.+) (.+) (.+) (.+)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -127,7 +126,7 @@ public class Parser {
 		}
 		
 
-		operation="save database";
+		operation="(?:save database|SAVE DATABASE)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -137,7 +136,7 @@ public class Parser {
 			return false;
 		}
 
-		operation="open database (.+)";
+		operation="(?:open database|OPEN DATABASE) (.+)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -150,7 +149,7 @@ public class Parser {
 		}
 		
 
-		operation="delete database";
+		operation="(?:delete database|DELETE DATABASE)";
 		pattern=Pattern.compile(operation);
 		matcher=pattern.matcher(command);
 		while(matcher.find()){
@@ -163,7 +162,7 @@ public class Parser {
 		return false;
 	}
 	
-	public void showList(ArrayList al)
+	private void showList(ArrayList al)
 	{
 		
 		int n=al.size();
